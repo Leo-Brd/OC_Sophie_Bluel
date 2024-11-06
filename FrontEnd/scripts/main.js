@@ -1,3 +1,4 @@
+import { filters, generateFilteredWorks } from "./filters.js"
 
 function generateWorks(works) {
 
@@ -36,4 +37,8 @@ async function fetchWorks() {
 }
 
 
-fetchWorks().catch(error => console.error("Erreur :", error));
+fetchWorks()
+    .then(works => {
+        filters(works);
+    })
+    .catch(error => console.error("Erreur :", error));

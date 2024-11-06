@@ -1,12 +1,18 @@
 
-const filterButtons = document.querySelectorAll(".filters button");
+export function generateFilteredWorks(works) {
+    console.log("test");
+}
 
-filterButtons.forEach(button => {
-    button.addEventListener("click", function() {
-        
-        filterButtons.forEach(btn => btn.classList.remove("active"));
+export function filters(works) {
+    const filterButtons = document.querySelectorAll(".filters button");
 
-        this.classList.add("active");
+    filterButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            filterButtons.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active");
 
+            generateFilteredWorks(works);
+        });
     });
-});
+}
+
