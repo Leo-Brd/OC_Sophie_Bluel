@@ -1,28 +1,36 @@
 
-// generate some works
+// generate some works in the gallery
 function generateWorks(works) {
-
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = "";
 
-    for (let i = 0; i < works.length; i++) {
+    const uniqueWorks = new Set();
 
-        const work = works[i];
+    const worksUnique = works.filter(work => {
+        if (uniqueWorks.has(work.id)) {
+            return false;
+        }
+        uniqueWorks.add(work.id);
+        return true;
+    });
 
+    worksUnique.forEach(work => {
         const figureBalise = document.createElement("figure");
 
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;
+
         const titreElement = document.createElement("figcaption");
         titreElement.innerText = work.title;
 
         figureBalise.appendChild(imageElement);
         figureBalise.appendChild(titreElement);
         gallery.appendChild(figureBalise);
-    }
+    });
 }
 
-// generate some works, but with a filter
+
+// generate some works in the gallery, but with a filter
 export function generateFilteredWorks(works) {
     const filterButtons = document.querySelectorAll(".filters button");
 
@@ -76,8 +84,7 @@ export async function fetchCategories() {
 // call all our functions
 export async function filters(works) {
 
-    const categories = await fetchCategories();
-    generateButton(categories)
+    generateButton(await fetchCategories())
     generateWorks(works);
     generateFilteredWorks(works);
 
