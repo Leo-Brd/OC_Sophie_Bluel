@@ -1,0 +1,48 @@
+
+#portfolio h2 {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+.filters {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 30px;
+}
+
+.filters button {
+	background-color: #fffef8;
+	min-width: 100px;
+	padding: 10px 7px;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	color: #1D6154;
+	font-weight: 700;
+	font-size: 16px;
+	font-family: 'Syne';
+	text-align: center;
+}
+
+.filters button:hover {
+	background-color: rgb(179, 211, 185);
+	cursor: pointer;
+}
+
+.active {
+	background-color:#1D6154 !important;
+	color: white !important;
+}
+
+.gallery {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.gallery img {
+	width: 100%;
+
+}

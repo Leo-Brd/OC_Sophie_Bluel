@@ -1,0 +1,42 @@
+
+header {
+	display: flex;
+	justify-content: space-between;
+	margin: 50px 0
+}
+
+header h1 {
+	display: flex;
+	flex-direction: column;
+	font-family: 'Syne';
+	font-size: 22px;
+	font-weight: 800;
+	color: #B1663C
+}
+
+header h1 > span {
+	font-family: 'Work Sans';
+	font-size:10px;
+	letter-spacing: 0.1em;
+}
+
+nav ul {
+	display: flex;
+	align-items: center;
+	list-style-type: none;
+
+}
+nav li {
+	padding: 0 10px;
+	font-size: 1.2em;
+}
+
+nav li img {
+	height: 22px;
+	width: 22px;
+}
+
+li:hover {
+	color: #B1663C;
+    cursor: pointer;
+}
