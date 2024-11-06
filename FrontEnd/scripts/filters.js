@@ -1,12 +1,14 @@
 
-
+// generate some works
 function generateWorks(works) {
+
+    const gallery = document.querySelector(".gallery");
+    gallery.innerHTML = "";
 
     for (let i = 0; i < works.length; i++) {
 
         const work = works[i];
 
-        const gallery = document.querySelector(".gallery");
         const figureBalise = document.createElement("figure");
 
         const imageElement = document.createElement("img");
@@ -20,10 +22,24 @@ function generateWorks(works) {
     }
 }
 
-export function generateFilteredWorks(works, categories) {
-    generateWorks(works);
+// generate some works, but with a filter
+export function generateFilteredWorks(works) {
+    const filterButtons = document.querySelectorAll(".filters button");
+
+    filterButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            filterButtons.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active");
+
+            const worksFiltres = works.filter(work => work.category.name === this.textContent);
+
+            generateWorks(worksFiltres);
+        });
+    });
 }
 
+
+// generate filters buttons
 export function generateButton(categories) {
 
     const filters = document.querySelector(".filters");
@@ -37,6 +53,7 @@ export function generateButton(categories) {
     }
 }
 
+// fetch categories from the API
 export async function fetchCategories() {
     let categories = window.localStorage.getItem('categories');
 
@@ -52,21 +69,13 @@ export async function fetchCategories() {
     return (categories);
 }
 
+// call all our functions
 export async function filters(works) {
 
     const categories = await fetchCategories();
     generateButton(categories)
     generateWorks(works);
+    generateFilteredWorks(works);
 
-    const filterButtons = document.querySelectorAll(".filters button");
-
-    filterButtons.forEach(button => {
-        button.addEventListener("click", function() {
-            filterButtons.forEach(btn => btn.classList.remove("active"));
-            this.classList.add("active");
-
-            generateFilteredWorks(works, categories);
-        });
-    });
 }
 
