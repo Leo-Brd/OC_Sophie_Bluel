@@ -3,6 +3,20 @@ export function generateFilteredWorks(works, categories) {
 
 }
 
+export function generateButton(categories) {
+
+    const filters = document.querySelector(".filters");
+
+    for (let i = 0; i < categories.length; i++) {
+        const category = categories[i];
+        const button = document.createElement("button");
+        button.textContent = category.name;
+
+        filters.appendChild(button)
+    }
+
+
+}
 
 export async function fetchCategories() {
     let categories = window.localStorage.getItem('categories');
@@ -19,7 +33,11 @@ export async function fetchCategories() {
     return (categories);
 }
 
-export function filters(works) {
+export async function filters(works) {
+
+    const categories = await fetchCategories();
+    generateButton(categories)
+
     const filterButtons = document.querySelectorAll(".filters button");
 
     filterButtons.forEach(button => {
@@ -27,7 +45,7 @@ export function filters(works) {
             filterButtons.forEach(btn => btn.classList.remove("active"));
             this.classList.add("active");
 
-            generateFilteredWorks(works, fetchCategories());
+            generateFilteredWorks(works, categories);
         });
     });
 }
