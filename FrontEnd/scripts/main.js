@@ -1,4 +1,4 @@
-import { filters, generateFilteredWorks } from "./filters.js"
+import { filters } from "./filters.js"
 
 function generateWorks(works) {
 
