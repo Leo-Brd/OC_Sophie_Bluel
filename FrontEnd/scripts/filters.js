@@ -1,6 +1,27 @@
 
-export function generateFilteredWorks(works, categories) {
 
+function generateWorks(works) {
+
+    for (let i = 0; i < works.length; i++) {
+
+        const work = works[i];
+
+        const gallery = document.querySelector(".gallery");
+        const figureBalise = document.createElement("figure");
+
+        const imageElement = document.createElement("img");
+        imageElement.src = work.imageUrl;
+        const titreElement = document.createElement("figcaption");
+        titreElement.innerText = work.title;
+
+        figureBalise.appendChild(imageElement);
+        figureBalise.appendChild(titreElement);
+        gallery.appendChild(figureBalise);
+    }
+}
+
+export function generateFilteredWorks(works, categories) {
+    generateWorks(works);
 }
 
 export function generateButton(categories) {
@@ -14,8 +35,6 @@ export function generateButton(categories) {
 
         filters.appendChild(button)
     }
-
-
 }
 
 export async function fetchCategories() {
@@ -37,6 +56,7 @@ export async function filters(works) {
 
     const categories = await fetchCategories();
     generateButton(categories)
+    generateWorks(works);
 
     const filterButtons = document.querySelectorAll(".filters button");
 
