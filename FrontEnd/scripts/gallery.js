@@ -81,8 +81,8 @@ export async function fetchCategories() {
     return (categories);
 }
 
-// call all our functions
-export async function filters(works) {
+// call all our functions for generating gallery
+export async function generateGallery(works) {
 
     generateButton(await fetchCategories())
     generateWorks(works);

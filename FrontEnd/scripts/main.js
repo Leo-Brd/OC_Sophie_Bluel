@@ -1,4 +1,4 @@
-import { filters } from "./filters.js"
+import { generateGallery } from "./gallery.js"
 
 async function fetchWorks() {
     let works = window.localStorage.getItem('works');
@@ -13,7 +13,7 @@ async function fetchWorks() {
         works = JSON.parse(works);
     }
 
-    filters(works);
+    generateGallery(works);
 }
 
 
