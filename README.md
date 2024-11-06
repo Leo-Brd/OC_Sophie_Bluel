@@ -1,8 +1,4 @@
-# Portfolio-architecte-sophie-bluel
 
-Code du projet 6 d'intégrateur web.
+![Screenshot 2024-11-05 at 23-43-38 Sophie Bluel - Architecte d'intérieur](https://github.com/user-attachments/assets/dece4766-9566-4f66-865c-e26bde9546f9)
 
-## Information pour le lancer le code
-
- - Lancer le backend depuis votre terminal en suivant les instruction du fichier ReadMe.
- - Si vous désirez afficher le code du backend et du frontend, faites le dans 2 instances de VSCode différentes pour éviter tout problème
+OpenClassrooms Web developer formation : project 3
