@@ -31,6 +31,10 @@ export function generateFilteredWorks(works) {
             filterButtons.forEach(btn => btn.classList.remove("active"));
             this.classList.add("active");
 
+            if (this.textContent === "Tous") {
+                generateWorks(works);
+                return;
+            }
             const worksFiltres = works.filter(work => work.category.name === this.textContent);
 
             generateWorks(worksFiltres);
