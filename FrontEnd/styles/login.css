@@ -1,0 +1,63 @@
+
+main > * {
+	text-align: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 100px 370px 300px 370px;
+}
+
+main form {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+main h2 {
+    margin-bottom: 50px;
+}
+
+main form label {
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    font: inherit;
+}
+
+main form input {
+    margin-bottom: 30px;
+    height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#password {
+    margin: 0;
+}
+
+input[type="submit"] {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+}
+
+input[type="submit"]:hover {
+    cursor: pointer;
+    color: #c6d4d2;
+}
+
+main form a {
+    color: #3D3D3D;
+    font-weight: 500;
+    font-size: 14px;
+}
