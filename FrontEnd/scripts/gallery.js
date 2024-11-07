@@ -19,6 +19,7 @@ function generateWorks(works) {
 
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;
+        imageElement.alt = work.title;
 
         const titreElement = document.createElement("figcaption");
         titreElement.innerText = work.title;
