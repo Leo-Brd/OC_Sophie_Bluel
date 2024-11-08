@@ -1,7 +1,31 @@
 
+export function onLoginSuccess(data) {
+
+    localStorage.setItem("authToken", data.token);
+    window.location.href = "index.html";
+    
+    const loginHeader = document.getElementById("login-header");
+    if (loginHeader) {
+        loginHeader.style.display = "flex";
+    } else {
+        console.log("Élément 'login-header' non trouvé.");
+    }
+
+    const portfolioButton = document.querySelector(".portfolio-title button");
+    if (portfolioButton) {
+        portfolioButton.style.display = "flex";
+    } else {
+        console.log("Élément 'portfolio-button' non trouvé.");
+    }
+
+}
+
+export function onLoginError() {
+    console.log("Identifiants incorrects. Veuillez réessayer.");
+}
 
 
-export function dataProcess(loginData) {
+export async function dataProcess(loginData) {
 
     fetch('http://localhost:5678/api/users/login', {
         method: 'POST',
@@ -13,12 +37,11 @@ export function dataProcess(loginData) {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            console.log("success")
-            localStorage.setItem("authToken", data.token);
-            window.location.href = "index.html";
+        if (data.token) {
+            onLoginSuccess(data);
         } else {
-            console.log("Identifiants incorrects. Veuillez réessayer.");
+            console.log(data)
+            onLoginError();
         }
     })
     .catch(error => console.error('Erreur :', error));
@@ -26,7 +49,7 @@ export function dataProcess(loginData) {
 }
 
 
-export function login() {
+export async function login() {
 
     const form = document.getElementById("login");
 
