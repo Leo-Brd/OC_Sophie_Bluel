@@ -1,7 +1,10 @@
 
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+.portfolio-title {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 30px;
 }
 
 .filters {
@@ -45,4 +48,35 @@
 .gallery img {
 	width: 100%;
 
+}
+
+
+/***** Edit mode *****/
+
+.portfolio-title button {
+	display: none;
+	gap: 8px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(100%);
+	margin-left: 40px;
+	margin-top: auto;
+	border: none;
+	background-color: inherit;
+}
+
+.portfolio-title button svg {
+	width: 15.58px;
+	height: 15.58px;
+}
+
+.portfolio-title button p {
+	color:#1D6154;
+	font-weight: 400;
+	font-size: 14px;
+	font-family: 'Work Sans';
+}
+
+.portfolio-title button:hover {
+	cursor: pointer;
 }
