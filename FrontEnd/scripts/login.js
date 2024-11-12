@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+/* Functions for the main page */
 export function showLoggedInUI() {
 
     const loginHeader = document.getElementById("login-header");
@@ -63,6 +65,10 @@ export function showLoggedInUI() {
     const logoutButton = document.getElementById("login-logout");
     logoutButton.innerHTML = "logout";
     logoutButton.href = "#";
+    logoutButton.addEventListener("click", ()=> {
+        localStorage.removeItem("authToken");
+        window.location.href = "index.html";
+    });
 
     const portfolioButton = document.querySelector(".portfolio-title button");
     portfolioButton.style.display = "flex";
