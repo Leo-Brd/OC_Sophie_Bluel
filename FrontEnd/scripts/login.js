@@ -6,10 +6,20 @@ export function onLoginSuccess(data) {
     window.location.href = "index.html";
 }
 
-
+/* when login fail, we print an error message */
 export function onLoginError() {
-    console.log("Identifiants incorrects. Veuillez réessayer.");
+    const form = document.getElementById("login");
+
+    let errorMessage = document.querySelector(".login-error");
+    if (!errorMessage) {
+        errorMessage = document.createElement("p");
+        errorMessage.classList.add("login-error");
+        errorMessage.textContent = "Erreur dans l’identifiant ou le mot de passe";
+        
+        form.appendChild(errorMessage);
+    }
 }
+
 
 /* we send our login data to API and process the answer */
 export async function dataProcess(loginData) {
@@ -27,7 +37,6 @@ export async function dataProcess(loginData) {
         if (data.token) {
             onLoginSuccess(data);
         } else {
-            console.log(data)
             onLoginError();
         }
     })
