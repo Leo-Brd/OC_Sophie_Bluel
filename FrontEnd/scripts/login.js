@@ -38,7 +38,7 @@ export async function login() {
 
     const form = document.getElementById("login");
 
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', (event)=> {
         event.preventDefault();
 
         const loginData = {
@@ -50,7 +50,7 @@ export async function login() {
     })
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', ()=> {
     login();
 });
 

@@ -19,6 +19,5 @@ async function fetchWorks() {
 
 
 fetchWorks().catch(error => console.error("Erreur :", error));
-// localStorage.removeItem("authToken");
 checkAuthentication();
 
