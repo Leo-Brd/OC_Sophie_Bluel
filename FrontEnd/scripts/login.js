@@ -60,6 +60,10 @@ export function showLoggedInUI() {
     const loginHeader = document.getElementById("login-header");
     loginHeader.style.display = "flex";
 
+    const logoutButton = document.getElementById("login-logout");
+    logoutButton.innerHTML = "logout";
+    logoutButton.href = "#";
+
     const portfolioButton = document.querySelector(".portfolio-title button");
     portfolioButton.style.display = "flex";
 }
