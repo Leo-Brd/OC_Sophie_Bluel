@@ -1,4 +1,5 @@
 
+/* when login success, we redirect to main page and add the token */
 export function onLoginSuccess(data) {
 
     localStorage.setItem("authToken", data.token);
@@ -10,7 +11,7 @@ export function onLoginError() {
     console.log("Identifiants incorrects. Veuillez réessayer.");
 }
 
-
+/* we send our login data to API and process the answer */
 export async function dataProcess(loginData) {
 
     fetch('http://localhost:5678/api/users/login', {
@@ -21,7 +22,7 @@ export async function dataProcess(loginData) {
         },
         body: JSON.stringify(loginData)
     })
-    .then(response => response.json())
+    .then(answer => answer.json())
     .then(data => {
         if (data.token) {
             onLoginSuccess(data);
@@ -33,8 +34,8 @@ export async function dataProcess(loginData) {
     .catch(error => console.error('Erreur :', error));
 }
 
-
-export async function login() {
+/* we get the datas from the form */
+export async function listenLogin() {
 
     const form = document.getElementById("login");
 
@@ -50,13 +51,16 @@ export async function login() {
     })
 }
 
+/* we call the functions when login page is charged */
 document.addEventListener('DOMContentLoaded', ()=> {
-    login();
+    listenLogin();
 });
 
 
 
-/* Functions for the main page */
+/***** Functions for the main page *****/
+
+/* show more elements when user is connected */
 export function showLoggedInUI() {
 
     const loginHeader = document.getElementById("login-header");
@@ -74,6 +78,7 @@ export function showLoggedInUI() {
     portfolioButton.style.display = "flex";
 }
 
+/* check if user is connected */
 export function checkAuthentication() {
     const token = localStorage.getItem("authToken");
     if (token) {
