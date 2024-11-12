@@ -1,5 +1,5 @@
 import { generateGallery } from "./gallery.js"
-import { login } from "./login.js"
+import { checkAuthentication } from "./login.js"
 
 async function fetchWorks() {
     let works = window.localStorage.getItem('works');
@@ -19,4 +19,5 @@ async function fetchWorks() {
 
 
 fetchWorks().catch(error => console.error("Erreur :", error));
-login();
+checkAuthentication();
+

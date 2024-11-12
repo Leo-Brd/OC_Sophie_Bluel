@@ -3,22 +3,8 @@ export function onLoginSuccess(data) {
 
     localStorage.setItem("authToken", data.token);
     window.location.href = "index.html";
-    
-    const loginHeader = document.getElementById("login-header");
-    if (loginHeader) {
-        loginHeader.style.display = "flex";
-    } else {
-        console.log("Élément 'login-header' non trouvé.");
-    }
-
-    const portfolioButton = document.querySelector(".portfolio-title button");
-    if (portfolioButton) {
-        portfolioButton.style.display = "flex";
-    } else {
-        console.log("Élément 'portfolio-button' non trouvé.");
-    }
-
 }
+
 
 export function onLoginError() {
     console.log("Identifiants incorrects. Veuillez réessayer.");
@@ -45,7 +31,6 @@ export async function dataProcess(loginData) {
         }
     })
     .catch(error => console.error('Erreur :', error));
-
 }
 
 
@@ -63,5 +48,27 @@ export async function login() {
 
         dataProcess(loginData);
     })
+}
 
+document.addEventListener('DOMContentLoaded', function () {
+    login();
+});
+
+
+export function showLoggedInUI() {
+
+    const loginHeader = document.getElementById("login-header");
+    loginHeader.style.display = "flex";
+
+    const portfolioButton = document.querySelector(".portfolio-title button");
+    portfolioButton.style.display = "flex";
+}
+
+export function checkAuthentication() {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+        showLoggedInUI();
+    } else {
+        console.log("Aucun utilisateur connecté.");
+    }
 }
