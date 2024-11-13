@@ -46,20 +46,30 @@
 .modal-gallery {
     display: flex;
     flex-wrap: wrap;
+    width: calc((77px * 5) + (10px * 4));
     gap: 10px;
     row-gap: 30px;
-    width: 420px;
     padding-bottom: 50px;
     margin-bottom: 30px;
     border-bottom: 1px solid #B3B3B3;
 }
 
-.modal-gallery img {
+.modal-gallery-project {
+    position: relative;
     height: 102px;
     width: 77px;
 }
 
+.modal-gallery img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
 .delete-project {
+    position: absolute;
+    top: 5px;
+    right: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,7 +78,7 @@
     background-color: black;
     color: white;
     font-size: 10px;
-    position: fixed;
+    cursor: pointer;
 }
 
 #add-project-button {
