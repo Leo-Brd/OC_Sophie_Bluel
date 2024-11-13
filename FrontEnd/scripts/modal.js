@@ -73,11 +73,61 @@ function generateModalGallery() {
     });
 }
 
+/* delete a project */
+function listenDeleteProject() {
+    const trashIcons = document.querySelectorAll(".delete-project");
+
+    trashIcons.forEach(icon => {
+        icon.addEventListener("click", async (event) => {
+            event.preventDefault();
+
+            const projectElement = event.target.closest(".modal-gallery-project");
+            const projectId = projectElement.dataset.projectId;
+
+            if (!projectId) {
+                console.error("Aucun ID de projet trouvé.");
+                return;
+            }
+
+            if (!confirm("Êtes-vous sûr de vouloir supprimer ce projet ?")) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (response.ok) {
+                    projectElement.remove();
+
+                    const mainGallery = document.querySelector(".gallery");
+                    const mainProjectElement = mainGallery.querySelector(`[data-project-id="${projectId}"]`);
+                    if (mainProjectElement) {
+                        mainProjectElement.remove();
+                    }
+
+                    let works = JSON.parse(localStorage.getItem("works")) || [];
+                    works = works.filter(work => work.id !== parseInt(projectId));
+                    localStorage.setItem("works", JSON.stringify(works));
+                }
+            } catch (error) {
+                console.error("Une erreur s'est produite :", error);
+            }
+        });
+    });
+}
+
 
 export function modal() {
     document.addEventListener('DOMContentLoaded', () => {
         listenOpenCloseModal();
         generateModalGallery();
+        listenDeleteProject();
     });
 }
 

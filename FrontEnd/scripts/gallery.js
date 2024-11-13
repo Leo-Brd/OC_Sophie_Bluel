@@ -16,6 +16,7 @@ function generateWorks(works) {
 
     worksUnique.forEach(work => {
         const figureBalise = document.createElement("figure");
+        figureBalise.dataset.projectId = work.id;
 
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;
