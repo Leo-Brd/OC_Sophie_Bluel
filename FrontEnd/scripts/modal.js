@@ -74,6 +74,31 @@ function generateModalGallery() {
 }
 
 /* delete a project */
+async function deleteProject(projectElement, projectId) {
+    const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (response.ok) {
+        projectElement.remove();
+
+        const mainGallery = document.querySelector(".gallery");
+        const mainProjectElement = mainGallery.querySelector(`[data-project-id="${projectId}"]`);
+        if (mainProjectElement) {
+            mainProjectElement.remove();
+        }
+
+        let works = JSON.parse(localStorage.getItem("works")) || [];
+        works = works.filter(work => work.id !== parseInt(projectId));
+        localStorage.setItem("works", JSON.stringify(works));
+    }
+}
+
+/* listen the deletion of a project */
 function listenDeleteProject() {
     const trashIcons = document.querySelectorAll(".delete-project");
 
@@ -94,27 +119,7 @@ function listenDeleteProject() {
             }
 
             try {
-                const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
-                    method: "DELETE",
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
-                        "Content-Type": "application/json"
-                    }
-                });
-
-                if (response.ok) {
-                    projectElement.remove();
-
-                    const mainGallery = document.querySelector(".gallery");
-                    const mainProjectElement = mainGallery.querySelector(`[data-project-id="${projectId}"]`);
-                    if (mainProjectElement) {
-                        mainProjectElement.remove();
-                    }
-
-                    let works = JSON.parse(localStorage.getItem("works")) || [];
-                    works = works.filter(work => work.id !== parseInt(projectId));
-                    localStorage.setItem("works", JSON.stringify(works));
-                }
+                deleteProject(projectElement, projectId);
             } catch (error) {
                 console.error("Une erreur s'est produite :", error);
             }
@@ -123,6 +128,7 @@ function listenDeleteProject() {
 }
 
 
+/* call all modal functions */
 export function modal() {
     document.addEventListener('DOMContentLoaded', () => {
         listenOpenCloseModal();
