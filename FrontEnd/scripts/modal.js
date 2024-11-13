@@ -1,3 +1,4 @@
+import { uniqueWorks } from "./utils.js";
 
 /* open the modal */
 function openModal() {
@@ -48,14 +49,9 @@ function generateModalGallery() {
     }
     modalGallery.innerHTML = "";
 
-    const uniqueWorks = works.reduce((acc, work) => {
-        if (!acc.some(item => item.id === work.id)) {
-            acc.push(work);
-        }
-        return acc;
-    }, []);
+    const uniqueWorksList = uniqueWorks(works);
 
-    uniqueWorks.forEach(work => {
+    uniqueWorksList.forEach(work => {
         const projectBalise = document.createElement("div");
         projectBalise.classList.add("modal-gallery-project");
         projectBalise.dataset.projectId = work.id;

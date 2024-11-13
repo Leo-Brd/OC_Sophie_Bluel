@@ -1,20 +1,13 @@
+import { uniqueWorks } from "./utils.js";
 
 // generate some works in the gallery
 function generateWorks(works) {
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = "";
 
-    const uniqueWorks = new Set();
+    const uniqueWorksList = uniqueWorks(works);
 
-    const worksUnique = works.filter(work => {
-        if (uniqueWorks.has(work.id)) {
-            return false;
-        }
-        uniqueWorks.add(work.id);
-        return true;
-    });
-
-    worksUnique.forEach(work => {
+    uniqueWorksList.forEach(work => {
         const figureBalise = document.createElement("figure");
         figureBalise.dataset.projectId = work.id;
 
