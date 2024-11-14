@@ -1,4 +1,4 @@
-import { uniqueWorks } from "./utils.js";
+import { uniqueWorks, addWorkToGallery } from "./utils.js";
 
 // generate some works in the gallery
 function generateWorks(works) {
@@ -8,19 +8,7 @@ function generateWorks(works) {
     const uniqueWorksList = uniqueWorks(works);
 
     uniqueWorksList.forEach(work => {
-        const figureBalise = document.createElement("figure");
-        figureBalise.dataset.projectId = work.id;
-
-        const imageElement = document.createElement("img");
-        imageElement.src = work.imageUrl;
-        imageElement.alt = work.title;
-
-        const titreElement = document.createElement("figcaption");
-        titreElement.innerText = work.title;
-
-        figureBalise.appendChild(imageElement);
-        figureBalise.appendChild(titreElement);
-        gallery.appendChild(figureBalise);
+        addWorkToGallery(work);
     });
 }
 
