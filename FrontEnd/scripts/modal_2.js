@@ -48,8 +48,35 @@ function loadCategories() {
     });
 }
 
+/* print the preview image when a file is choosed */
+function listenPreviewImage() {
+    const fileInput = document.getElementById("file-input");
+
+    fileInput.addEventListener('change', (event) => {
+        const previewImage = document.getElementById("preview-image");
+        const otherElements = document.querySelectorAll('.add-file > *:not(#preview-image)');
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                previewImage.src = e.target.result;
+                previewImage.style.display = 'block';
+                otherElements.forEach(element => {
+                    if (element !== previewImage) {
+                        element.style.display = 'none';
+                    }
+                });
+            };            
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
 /* call all the functions */
 export function newProject() {
     managePages();
     loadCategories();
+    listenPreviewImage();
 }
