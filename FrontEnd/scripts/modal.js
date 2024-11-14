@@ -1,5 +1,6 @@
 import { uniqueWorks } from "./utils.js";
 import { newProject } from "./modal_2.js";
+import { SwitchPage1 } from "./modal_2.js";
 
 /* open the modal */
 function openModal() {
@@ -7,7 +8,7 @@ function openModal() {
     if (modal) {
         modal.style.display = 'block';
     }
-    const backArrow = document.querySelector(".fa-arrow-left");
+    const backArrow = document.querySelector(".back-page");
     backArrow.style.visibility = 'hidden';
     const page2 = document.getElementById("page-2");
     page2.style.display = 'none';
@@ -19,6 +20,7 @@ function closeModal() {
     if (modal) {
         modal.style.display = 'none';
     }
+    SwitchPage1();
 }
 
 /* listen for closing and opening the modal */

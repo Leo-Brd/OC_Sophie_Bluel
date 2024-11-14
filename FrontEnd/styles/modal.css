@@ -31,13 +31,13 @@
     align-items: center;
 }
 
-.close-modal {
+.nav-modal {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.close-modal i {
+.nav-modal i {
     display: flex;
     justify-content: center;
     align-items: center;
