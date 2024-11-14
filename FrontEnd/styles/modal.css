@@ -1,4 +1,6 @@
 
+/**** Page 1 *****/
+
 .modal {
     display: none;
     position: fixed;
@@ -28,7 +30,9 @@
 .modal-page {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .nav-modal {
@@ -108,4 +112,73 @@
 
 #validate-button {
     background-color: #A7A7A7;
+}
+
+
+/**** Page 2 *****/
+
+#new-project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 420px
+}
+
+.add-file {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    background-color: #E8F1F6;
+    height: 169px;
+}
+
+.fa-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 76px;
+    width: 76px;
+    font-size: 68px;
+    color: #B9C5CC;
+}
+
+.add-file button {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    width: 40%;
+    background-color: #CBD6DC;
+    border: 0;
+    border-radius: 50px;
+}
+
+.add-file input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.add-file button p {
+    position: absolute;
+    font-weight: 500;
+    font-size: 14px;
+    color: #306685;
+    pointer-events: none;
+}
+
+.add-file > p {
+    font-weight: 400;
+    font-size: 10px;
+    color: #444444;
 }
