@@ -26,7 +26,29 @@ function managePages() {
     })
 }
 
+/* load the categories in the select input */
+function loadCategories() {
+    const categories = JSON.parse(window.localStorage.getItem('categories')) || [];
+    const categorySelect = document.getElementById("category-select");
+
+    const defaultOption = document.createElement('option');
+    defaultOption.value = "";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    defaultOption.textContent = "Choisissez une catégorie";
+    categorySelect.appendChild(defaultOption);
+
+    categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category.name;
+        option.textContent = category.name;
+
+        categorySelect.appendChild(option);
+    });
+}
+
 /* call all the functions */
 export function newProject() {
     managePages();
+    loadCategories();
 }
