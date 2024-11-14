@@ -12,7 +12,7 @@ export function uniqueWorks(works) {
     });
 }
 
-/* clean the modal inputs and restore the files one */
+/* clean the modal inputs */
 export function resetInputs(modal) {
     const inputs = modal.querySelectorAll('input, select');
 
@@ -34,4 +34,78 @@ export function resetInputs(modal) {
             input.value = '';
         }
     });
+}
+
+/* delete a project */
+export async function deleteProject(projectElement, projectId) {
+    const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (response.ok) {
+        projectElement.remove();
+
+        const mainGallery = document.querySelector(".gallery");
+        const mainProjectElement = mainGallery.querySelector(`[data-project-id="${projectId}"]`);
+        if (mainProjectElement) {
+            mainProjectElement.remove();
+        }
+
+        let works = JSON.parse(localStorage.getItem("works")) || [];
+        works = works.filter(work => work.id !== parseInt(projectId));
+        localStorage.setItem("works", JSON.stringify(works));
+    }
+}
+
+/* add a project */
+export async function addProject(imageFile, title, category) {
+
+    const formData = new FormData();
+    formData.append('image', imageFile);
+    formData.append('title', title);
+    formData.append('category', category);
+
+    try {
+        const response = await fetch(`http://localhost:5678/api/works/`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                'Accept': 'application/json'
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            addWorkToModalGallery(result);
+            
+        } else {
+            const error = await response.json();
+            console.error('Erreur lors de la création du work :', error);
+        }
+    } catch (error) {
+        console.error('Une erreur s\'est produite :', error);
+    }
+}
+
+export function addWorkToModalGallery(work) {
+    const modalGallery = document.querySelector(".modal-gallery");
+    const projectBalise = document.createElement("div");
+    projectBalise.classList.add("modal-gallery-project");
+    projectBalise.dataset.projectId = work.id;
+
+    const imageElement = document.createElement("img");
+    imageElement.src = work.imageUrl;
+    imageElement.alt = work.title;
+
+    const trashIcon = document.createElement("i");
+    trashIcon.classList.add("fa-solid", "fa-trash-can", "delete-project");
+
+    projectBalise.appendChild(imageElement);
+    projectBalise.appendChild(trashIcon);
+    modalGallery.appendChild(projectBalise);
 }

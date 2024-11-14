@@ -1,7 +1,7 @@
-import { uniqueWorks } from "./utils.js";
+import { uniqueWorks, resetInputs, deleteProject, addWorkToModalGallery } from "./utils.js";
 import { newProject } from "./modal_2.js";
 import { switchPage1 } from "./modal_2.js";
-import { resetInputs } from "./utils.js";
+
 
 /* open the modal */
 function openModal() {
@@ -61,46 +61,8 @@ function generateModalGallery() {
     const uniqueWorksList = uniqueWorks(works);
 
     uniqueWorksList.forEach(work => {
-        const projectBalise = document.createElement("div");
-        projectBalise.classList.add("modal-gallery-project");
-        projectBalise.dataset.projectId = work.id;
-
-        const imageElement = document.createElement("img");
-        imageElement.src = work.imageUrl;
-        imageElement.alt = work.title;
-
-        const trashIcon = document.createElement("i");
-        trashIcon.classList.add("fa-solid", "fa-trash-can", "delete-project");
-
-        projectBalise.appendChild(imageElement);
-        projectBalise.appendChild(trashIcon);
-        modalGallery.appendChild(projectBalise);
+        addWorkToModalGallery(work);
     });
-}
-
-/* delete a project */
-async function deleteProject(projectElement, projectId) {
-    const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
-        method: "DELETE",
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
-            "Content-Type": "application/json"
-        }
-    });
-
-    if (response.ok) {
-        projectElement.remove();
-
-        const mainGallery = document.querySelector(".gallery");
-        const mainProjectElement = mainGallery.querySelector(`[data-project-id="${projectId}"]`);
-        if (mainProjectElement) {
-            mainProjectElement.remove();
-        }
-
-        let works = JSON.parse(localStorage.getItem("works")) || [];
-        works = works.filter(work => work.id !== parseInt(projectId));
-        localStorage.setItem("works", JSON.stringify(works));
-    }
 }
 
 /* listen the deletion of a project */
