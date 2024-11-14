@@ -30,6 +30,7 @@ function managePages() {
 function loadCategories() {
     const categories = JSON.parse(window.localStorage.getItem('categories')) || [];
     const categorySelect = document.getElementById("category-select");
+    categorySelect.innerHTML = "";
 
     const defaultOption = document.createElement('option');
     defaultOption.value = "";
