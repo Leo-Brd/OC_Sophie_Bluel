@@ -105,3 +105,7 @@
     border: none;
     cursor: pointer;
 }
+
+#validate-button {
+    background-color: #A7A7A7;
+}

@@ -1,6 +1,6 @@
 import { uniqueWorks } from "./utils.js";
 import { newProject } from "./modal_2.js";
-import { SwitchPage1 } from "./modal_2.js";
+import { switchPage1 } from "./modal_2.js";
 
 /* open the modal */
 function openModal() {
@@ -20,7 +20,7 @@ function closeModal() {
     if (modal) {
         modal.style.display = 'none';
     }
-    SwitchPage1();
+    switchPage1();
 }
 
 /* listen for closing and opening the modal */
