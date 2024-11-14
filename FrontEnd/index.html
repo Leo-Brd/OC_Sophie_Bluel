@@ -101,7 +101,28 @@
 			<div class="modal-page" id="page-2">
 				<h3 class="modal-gallery-title">Galerie photo</h3>
 				<form>
-
+					<div class="add-file">
+						<i class="fa-regular fa-image"></i>
+						<button>
+							<input type="file" accept=".png, .jpg, .jpeg">
+							<p>+ Ajouter photo</p>
+						</button>
+						<p>jpg, png : 4mo max</p>
+					</div>
+					<div>
+						<label for="title-input">Titre</label>
+						<input type="text" id="title-input" name="title" required>
+					</div>
+					
+					<div>
+						<label for="category-select">Catégorie</label>
+						<select id="category-select" name="category" required>
+							<option value="" disabled selected>Choisissez une catégorie</option>
+							<option value="objets">Objets</option>
+							<option value="appartements">Appartements</option>
+							<option value="hotels-restaurants">Hotels et restaurants</option>
+						</select>
+					</div>
 				</form>
 				<button class="modal-button" id="validate-button">Valider</button>
 			</div>
