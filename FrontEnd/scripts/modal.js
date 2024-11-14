@@ -1,4 +1,5 @@
 import { uniqueWorks } from "./utils.js";
+import { newProject } from "./modal_2.js";
 
 /* open the modal */
 function openModal() {
@@ -130,6 +131,11 @@ export function modal() {
         listenOpenCloseModal();
         generateModalGallery();
         listenDeleteProject();
+
+        addProjectButton = document.getElementById("add-project-button");
+        addProjectButton.addEventListener("click", () => {
+            newProject();
+        })
     });
 }
 
