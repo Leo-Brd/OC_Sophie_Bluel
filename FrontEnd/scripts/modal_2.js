@@ -1,6 +1,6 @@
 
 /* switch on page 2 */
-function SwitchPage2(backArrow) {
+function switchPage2(backArrow) {
     const page1 = document.getElementById("page-1");
     page1.style.display = 'none';
     const page2 = document.getElementById("page-2");
@@ -9,7 +9,7 @@ function SwitchPage2(backArrow) {
 }
 
 /* switch on page 1 */
-export function SwitchPage1(backArrow) {
+export function switchPage1(backArrow) {
     const page1 = document.getElementById("page-1");
     page1.style.display = 'flex';
     const page2 = document.getElementById("page-2");
@@ -17,11 +17,16 @@ export function SwitchPage1(backArrow) {
     backArrow.style.visibility = 'hidden';
 }
 
+/* manage the pages */
+function managePages() {
+    const backArrow = document.querySelector(".back-page");
+    switchPage2(backArrow);
+    backArrow.addEventListener("click", () => {
+        switchPage1(backArrow);
+    })
+}
+
 /* call all the functions */
 export function newProject() {
-    const backArrow = document.querySelector(".back-page");
-    SwitchPage2(backArrow);
-    backArrow.addEventListener("click", () => {
-        SwitchPage1(backArrow);
-    })
+    managePages();
 }
