@@ -7,6 +7,10 @@ function openModal() {
     if (modal) {
         modal.style.display = 'block';
     }
+    const backArrow = document.querySelector(".fa-arrow-left");
+    backArrow.style.visibility = 'hidden';
+    const page2 = document.getElementById("page-2");
+    page2.style.display = 'none';
 }
 
 /* close the modal */ 
@@ -132,7 +136,7 @@ export function modal() {
         generateModalGallery();
         listenDeleteProject();
 
-        addProjectButton = document.getElementById("add-project-button");
+        const addProjectButton = document.getElementById("add-project-button");
         addProjectButton.addEventListener("click", () => {
             newProject();
         })

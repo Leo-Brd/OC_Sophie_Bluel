@@ -89,10 +89,20 @@
 
 	<div class="modal">
 		<div class="modal-content">
-			<i class="fa-solid fa-xmark close-modal"></i>
-			<h3>Galerie photo</h3>
-			<div class="modal-gallery"></div>
-			<button id="add-project-button">Ajouter une photo</button>
+			<div class="close-modal">
+				<i class="fa-solid fa-arrow-left"></i>
+				<i class="fa-solid fa-xmark"></i>
+			</div>
+			<div class="modal-page" id="page-1">
+				<h3 class="modal-gallery-title">Galerie photo</h3>
+				<div class="modal-gallery"></div>
+				<button class="modal-button" id="add-project-button">Ajouter une photo</button>
+			</div>
+			<div class="modal-page" id="page-2">
+				<h3 class="modal-gallery-title">Galerie photo</h3>
+				<div class="modal-gallery"></div>
+				<button class="modal-button" id="validate-button">Valider</button>
+			</div>
 		</div>
 	</div>
 
