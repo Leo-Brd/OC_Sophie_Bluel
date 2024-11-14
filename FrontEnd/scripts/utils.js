@@ -82,7 +82,10 @@ export async function addProject(imageFile, title, category) {
         if (response.ok) {
             const result = await response.json();
             addWorkToModalGallery(result);
-            
+            addWorkToGallery(result);
+            let works = JSON.parse(localStorage.getItem('works')) || [];
+            works.push(result);
+            localStorage.setItem('works', JSON.stringify(works));           
         } else {
             const error = await response.json();
             console.error('Erreur lors de la création du work :', error);
