@@ -1,4 +1,4 @@
-
+import { addProject } from "./utils.js";
 
 /* switch on page 2 */
 function switchPage2(backArrow) {
@@ -30,9 +30,8 @@ function managePages() {
 }
 
 /* load the categories in the select input */
-function loadCategories() {
+function loadCategories(categorySelect) {
     const categories = JSON.parse(window.localStorage.getItem('categories')) || [];
-    const categorySelect = document.getElementById("category-select");
     categorySelect.innerHTML = "";
 
     const defaultOption = document.createElement('option');
@@ -46,14 +45,14 @@ function loadCategories() {
         const option = document.createElement("option");
         option.value = category.name;
         option.textContent = category.name;
+        option.setAttribute("data-id", category.id);
 
         categorySelect.appendChild(option);
     });
 }
 
 /* print the preview image when a file is choosed */
-function listenPreviewImage() {
-    const fileInput = document.getElementById("file-input");
+function listenPreviewImage(fileInput) {
 
     fileInput.addEventListener('change', (event) => {
         const previewImage = document.getElementById("preview-image");
@@ -78,11 +77,11 @@ function listenPreviewImage() {
 }
 
 /* verif the modal inputs are filled */
-function verifInputs() {
+function verifInputs(fileInput, titleInput, categoryInput) {
     const inputs = [
-        { element: document.getElementById("file-input"), isValid: el => el.files && el.files.length > 0 },
-        { element: document.getElementById("title-input"), isValid: el => el.value.trim() !== "" },
-        { element: document.getElementById("category-select"), isValid: el => el.value }
+        { element: fileInput, isValid: el => el.files && el.files.length > 0 },
+        { element: titleInput, isValid: el => el.value.trim() !== "" },
+        { element: categoryInput, isValid: el => el.value }
     ];
 
     const invalidInput = inputs.find(input => !input.isValid(input.element));
@@ -90,14 +89,14 @@ function verifInputs() {
 }
 
 /* listen when the button need to be active*/
-function listenButtonActivation() {
+function listenButtonActivation(fileInput, titleInput, categoryInput) {
     const form = document.getElementById("new-project");
     const submitButton = document.getElementById("validate-button");
 
     const inputs = form.querySelectorAll('.modal-input input, .modal-input select');
     inputs.forEach(input => {
         input.addEventListener('input', () => {
-            if (verifInputs()) {
+            if (verifInputs(fileInput, titleInput, categoryInput)) {
                 activeButton(submitButton);
             } else {
                 desactiveButton(submitButton);
@@ -118,12 +117,27 @@ function desactiveButton(button) {
     button.disabled = true;
 }
 
-
 /* call all the functions */
 export function newProject() {
+    const form = document.getElementById("new-project");
+    const fileInput = document.getElementById("file-input");
+    const titleInput = document.getElementById("title-input");
+    const categoryInput = document.getElementById("category-select");
+
     managePages();
-    loadCategories();
-    listenPreviewImage();
-    listenButtonActivation();
+    loadCategories(categoryInput);
+    listenPreviewImage(fileInput);
+    listenButtonActivation(fileInput, titleInput, categoryInput);
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const selectedCategory = categoryInput.options[categoryInput.selectedIndex];
+        console.log("Option sélectionnée : ", selectedCategory);
+        const categoryId = selectedCategory.getAttribute("data-id");
+
+        console.log(categoryId);
+        addProject(fileInput.files[0], titleInput.value, categoryId);
+    })
 }
 
