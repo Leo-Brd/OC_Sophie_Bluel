@@ -11,6 +11,8 @@ function switchPage2(backArrow) {
 
 /* switch on page 1 */
 export function switchPage1(backArrow) {
+    const submitButton = document.getElementById("validate-button");
+    desactiveButton(submitButton);
     const page1 = document.getElementById("page-1");
     page1.style.display = 'flex';
     const page2 = document.getElementById("page-2");
@@ -82,17 +84,38 @@ function verifInputs() {
         { element: document.getElementById("title-input"), isValid: el => el.value.trim() !== "" },
         { element: document.getElementById("category-select"), isValid: el => el.value }
     ];
-    
-    const errorMessage = document.getElementById("errorMessage");
-    errorMessage.innerHTML = "";
 
     const invalidInput = inputs.find(input => !input.isValid(input.element));
-    if (invalidInput) {
-        errorMessage.innerHTML = `<p>Le formulaire n'est pas correctement rempli</p>`;
-        return false;
-    }
+    return !invalidInput;
+}
 
-    return true;
+/* listen when the button need to be active*/
+function listenButtonActivation() {
+    const form = document.getElementById("new-project");
+    const submitButton = document.getElementById("validate-button");
+
+    const inputs = form.querySelectorAll('.modal-input input, .modal-input select');
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if (verifInputs()) {
+                activeButton(submitButton);
+            } else {
+                desactiveButton(submitButton);
+            }
+        });
+    });
+}
+
+/* active the button */
+function activeButton(button) {
+    button.style.backgroundColor = "#1D6154";
+    button.disabled = false;
+}
+
+/* desactive the button */
+function desactiveButton(button) {
+    button.style.backgroundColor = "#A7A7A7";
+    button.disabled = true;
 }
 
 
@@ -101,4 +124,6 @@ export function newProject() {
     managePages();
     loadCategories();
     listenPreviewImage();
+    listenButtonActivation();
 }
+
