@@ -1,4 +1,5 @@
 
+
 /* switch on page 2 */
 function switchPage2(backArrow) {
     const page1 = document.getElementById("page-1");
@@ -73,6 +74,27 @@ function listenPreviewImage() {
         }
     });
 }
+
+/* verif the modal inputs are filled */
+function verifInputs() {
+    const inputs = [
+        { element: document.getElementById("file-input"), isValid: el => el.files && el.files.length > 0 },
+        { element: document.getElementById("title-input"), isValid: el => el.value.trim() !== "" },
+        { element: document.getElementById("category-select"), isValid: el => el.value }
+    ];
+    
+    const errorMessage = document.getElementById("errorMessage");
+    errorMessage.innerHTML = "";
+
+    const invalidInput = inputs.find(input => !input.isValid(input.element));
+    if (invalidInput) {
+        errorMessage.innerHTML = `<p>Le formulaire n'est pas correctement rempli</p>`;
+        return false;
+    }
+
+    return true;
+}
+
 
 /* call all the functions */
 export function newProject() {
