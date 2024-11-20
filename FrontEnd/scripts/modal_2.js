@@ -133,10 +133,8 @@ export function newProject() {
         event.preventDefault();
 
         const selectedCategory = categoryInput.options[categoryInput.selectedIndex];
-        console.log("Option sélectionnée : ", selectedCategory);
         const categoryId = selectedCategory.getAttribute("data-id");
 
-        console.log(categoryId);
         addProject(fileInput.files[0], titleInput.value, categoryId);
     })
 }

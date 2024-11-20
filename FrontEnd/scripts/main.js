@@ -14,7 +14,6 @@ async function fetchWorks() {
     } else {
         works = JSON.parse(works);
     }
-
     generateGallery(works);
 }
 

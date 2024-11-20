@@ -62,14 +62,22 @@ export async function deleteProject(projectElement, projectId) {
 }
 
 /* add a project */
-export async function addProject(imageFile, title, category) {
-
-    const formData = new FormData();
-    formData.append('image', imageFile);
-    formData.append('title', title);
-    formData.append('category', category);
-
+export async function addProject(imageFile, title, categoryId) {
     try {
+        const categories = JSON.parse(localStorage.getItem('categories')) || [];
+        const categoryObject = categories.find(cat => cat.id === parseInt(categoryId));
+
+        if (!categoryObject) {
+            console.error("La catégorie spécifiée est introuvable.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        formData.append('title', title);
+        formData.append('categoryId', categoryId);
+        formData.append('category', JSON.stringify(categoryObject));
+
         const response = await fetch(`http://localhost:5678/api/works/`, {
             method: 'POST',
             headers: {
@@ -81,11 +89,13 @@ export async function addProject(imageFile, title, category) {
 
         if (response.ok) {
             const result = await response.json();
+
             addWorkToModalGallery(result);
             addWorkToGallery(result);
+
             let works = JSON.parse(localStorage.getItem('works')) || [];
-            works.push(result);
-            localStorage.setItem('works', JSON.stringify(works));           
+            works.push(completeWork);
+            localStorage.setItem('works', JSON.stringify(works));
         } else {
             const error = await response.json();
             console.error('Erreur lors de la création du work :', error);
@@ -94,6 +104,8 @@ export async function addProject(imageFile, title, category) {
         console.error('Une erreur s\'est produite :', error);
     }
 }
+
+
 
 /* add a project to the modal gallery */
 export function addWorkToModalGallery(work) {
