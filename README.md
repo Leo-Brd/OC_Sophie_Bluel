@@ -8,3 +8,8 @@ OpenClassrooms Web developer formation : project 3
 - You can filter the works for each categories
 - There is a login page for connecting to Sophie's account
 - In connected mode, you can add and remove works
+
+To run the project :
+- You need to have node and npm installed
+- In the Back-end folder, type "npm start"
+- Open index.html
