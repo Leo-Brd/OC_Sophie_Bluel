@@ -110,21 +110,25 @@ export function closeModal() {
 }
 
 /* switch on page 2 */
-export function switchPage2(backArrow) {
+export function switchPage2() {
     const page1 = document.getElementById("page-1");
     page1.style.display = 'none';
     const page2 = document.getElementById("page-2");
     page2.style.display = 'flex';
+
+    const backArrow = document.querySelector(".back-page");
     backArrow.style.visibility = 'visible';
 }
 
 /* switch on page 1 */
-export function switchPage1(backArrow) {
+export function switchPage1() {
     const submitButton = document.getElementById("validate-button");
     desactiveButton(submitButton);
     const page1 = document.getElementById("page-1");
     page1.style.display = 'flex';
     const page2 = document.getElementById("page-2");
     page2.style.display = 'none';
+
+    const backArrow = document.querySelector(".back-page");
     backArrow.style.visibility = 'hidden';
 }

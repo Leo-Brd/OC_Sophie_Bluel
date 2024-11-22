@@ -40,9 +40,9 @@ async function addProject(imageFile, title, category) {
 /* manage the pages */
 function managePages() {
     const backArrow = document.querySelector(".back-page");
-    switchPage2(backArrow);
+    switchPage2();
     backArrow.addEventListener("click", () => {
-        switchPage1(backArrow);
+        switchPage1();
     })
 }
 
