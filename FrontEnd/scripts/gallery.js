@@ -26,7 +26,6 @@ export function generateFilteredWorks(works) {
                 generateWorks(works);
                 return;
             }
-            console.log(works);
             const worksFiltres = works.filter(work => work.category.name === this.textContent);
 
             generateWorks(worksFiltres);

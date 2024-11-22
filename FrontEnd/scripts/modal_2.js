@@ -1,12 +1,14 @@
 import { activeButton, desactiveButton, addWorkToGallery, addWorkToModalGallery, switchPage1, switchPage2, closeModal } from "./utils.js"
 
 /* add a project */
-async function addProject(imageFile, title, categoryId) {
+async function addProject(imageFile, title, category) {
     try {
         const formData = new FormData();
         formData.append('image', imageFile);
         formData.append('title', title);
-        formData.append('categoryId', categoryId);
+        formData.append('category', category);
+
+        console.log(formData)
 
         const response = await fetch(`http://localhost:5678/api/works/`, {
             method: 'POST',
