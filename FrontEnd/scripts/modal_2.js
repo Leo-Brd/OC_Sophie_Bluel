@@ -1,23 +1,47 @@
-import { addProject } from "./utils.js";
+import { activeButton, desactiveButton, addWorkToGallery, addWorkToModalGallery, switchPage1, switchPage2, closeModal } from "./utils.js"
 
-/* switch on page 2 */
-function switchPage2(backArrow) {
-    const page1 = document.getElementById("page-1");
-    page1.style.display = 'none';
-    const page2 = document.getElementById("page-2");
-    page2.style.display = 'flex';
-    backArrow.style.visibility = 'visible';
-}
+/* add a project */
+async function addProject(imageFile, title, categoryId) {
+    try {
+        const categories = JSON.parse(localStorage.getItem('categories')) || [];
+        const categoryObject = categories.find(cat => cat.id === parseInt(categoryId));
 
-/* switch on page 1 */
-export function switchPage1(backArrow) {
-    const submitButton = document.getElementById("validate-button");
-    desactiveButton(submitButton);
-    const page1 = document.getElementById("page-1");
-    page1.style.display = 'flex';
-    const page2 = document.getElementById("page-2");
-    page2.style.display = 'none';
-    backArrow.style.visibility = 'hidden';
+        if (!categoryObject) {
+            console.error("La catégorie spécifiée est introuvable.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        formData.append('title', title);
+        formData.append('categoryId', categoryId);
+        formData.append('category', JSON.stringify(categoryObject));
+
+        const response = await fetch(`http://localhost:5678/api/works/`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                'Accept': 'application/json'
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+
+            addWorkToModalGallery(result);
+            addWorkToGallery(result);
+
+            let works = JSON.parse(localStorage.getItem('works')) || [];
+            works.push(completeWork);
+            localStorage.setItem('works', JSON.stringify(works));
+        } else {
+            const error = await response.json();
+            console.error('Erreur lors de la création du work :', error);
+        }
+    } catch (error) {
+        console.error('Une erreur s\'est produite :', error);
+    }
 }
 
 /* manage the pages */
@@ -105,18 +129,6 @@ function listenButtonActivation(fileInput, titleInput, categoryInput) {
     });
 }
 
-/* active the button */
-function activeButton(button) {
-    button.style.backgroundColor = "#1D6154";
-    button.disabled = false;
-}
-
-/* desactive the button */
-function desactiveButton(button) {
-    button.style.backgroundColor = "#A7A7A7";
-    button.disabled = true;
-}
-
 /* call all the functions */
 export function newProject() {
     const form = document.getElementById("new-project");
@@ -131,11 +143,13 @@ export function newProject() {
 
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
+        console.log("test");
 
         const selectedCategory = categoryInput.options[categoryInput.selectedIndex];
         const categoryId = selectedCategory.getAttribute("data-id");
 
-        addProject(fileInput.files[0], titleInput.value, categoryId);
+        await addProject(fileInput.files[0], titleInput.value, categoryId);
+        closeModal();
     })
 }
 

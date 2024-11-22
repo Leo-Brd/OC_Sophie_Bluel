@@ -36,76 +36,6 @@ export function resetInputs(modal) {
     });
 }
 
-/* delete a project */
-export async function deleteProject(projectElement, projectId) {
-    const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
-        method: "DELETE",
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem("authToken")}`,
-            "Content-Type": "application/json"
-        }
-    });
-
-    if (response.ok) {
-        projectElement.remove();
-
-        const mainGallery = document.querySelector(".gallery");
-        const mainProjectElement = mainGallery.querySelector(`[data-project-id="${projectId}"]`);
-        if (mainProjectElement) {
-            mainProjectElement.remove();
-        }
-
-        let works = JSON.parse(localStorage.getItem("works")) || [];
-        works = works.filter(work => work.id !== parseInt(projectId));
-        localStorage.setItem("works", JSON.stringify(works));
-    }
-}
-
-/* add a project */
-export async function addProject(imageFile, title, categoryId) {
-    try {
-        const categories = JSON.parse(localStorage.getItem('categories')) || [];
-        const categoryObject = categories.find(cat => cat.id === parseInt(categoryId));
-
-        if (!categoryObject) {
-            console.error("La catégorie spécifiée est introuvable.");
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('image', imageFile);
-        formData.append('title', title);
-        formData.append('categoryId', categoryId);
-        formData.append('category', JSON.stringify(categoryObject));
-
-        const response = await fetch(`http://localhost:5678/api/works/`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                'Accept': 'application/json'
-            },
-            body: formData
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-
-            addWorkToModalGallery(result);
-            addWorkToGallery(result);
-
-            let works = JSON.parse(localStorage.getItem('works')) || [];
-            works.push(completeWork);
-            localStorage.setItem('works', JSON.stringify(works));
-        } else {
-            const error = await response.json();
-            console.error('Erreur lors de la création du work :', error);
-        }
-    } catch (error) {
-        console.error('Une erreur s\'est produite :', error);
-    }
-}
-
-
 
 /* add a project to the modal gallery */
 export function addWorkToModalGallery(work) {
@@ -126,6 +56,7 @@ export function addWorkToModalGallery(work) {
     modalGallery.appendChild(projectBalise);
 }
 
+
 /* add a project to the main gallery */
 export function addWorkToGallery(work) {
     const gallery = document.querySelector(".gallery");
@@ -142,4 +73,58 @@ export function addWorkToGallery(work) {
     figureBalise.appendChild(imageElement);
     figureBalise.appendChild(titreElement);
     gallery.appendChild(figureBalise);
+}
+
+/* active the validate button */
+export function activeButton(button) {
+    button.style.backgroundColor = "#1D6154";
+    button.disabled = false;
+}
+
+/* desactive the validate button */
+export function desactiveButton(button) {
+    button.style.backgroundColor = "#A7A7A7";
+    button.disabled = true;
+}
+
+/* open the modal */
+export function openModal() {
+    const modal = document.querySelector('.modal');
+    if (modal) {
+        modal.style.display = 'block';
+    }
+    const backArrow = document.querySelector(".back-page");
+    backArrow.style.visibility = 'hidden';
+    const page2 = document.getElementById("page-2");
+    page2.style.display = 'none';
+}
+
+/* close the modal */ 
+export function closeModal() {
+    const modal = document.querySelector('.modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+    resetInputs(modal);
+    switchPage1();
+}
+
+/* switch on page 2 */
+export function switchPage2(backArrow) {
+    const page1 = document.getElementById("page-1");
+    page1.style.display = 'none';
+    const page2 = document.getElementById("page-2");
+    page2.style.display = 'flex';
+    backArrow.style.visibility = 'visible';
+}
+
+/* switch on page 1 */
+export function switchPage1(backArrow) {
+    const submitButton = document.getElementById("validate-button");
+    desactiveButton(submitButton);
+    const page1 = document.getElementById("page-1");
+    page1.style.display = 'flex';
+    const page2 = document.getElementById("page-2");
+    page2.style.display = 'none';
+    backArrow.style.visibility = 'hidden';
 }
