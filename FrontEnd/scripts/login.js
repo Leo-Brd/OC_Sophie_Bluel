@@ -1,7 +1,6 @@
 
 /* when login success, we redirect to main page and add the token */
 export function onLoginSuccess(data) {
-
     localStorage.setItem("authToken", data.token);
     window.location.href = "index.html";
 }

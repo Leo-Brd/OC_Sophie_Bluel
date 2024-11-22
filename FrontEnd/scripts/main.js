@@ -1,9 +1,9 @@
 import { generateGallery } from "./gallery.js"
 import { checkAuthentication } from "./login.js"
-import { modal } from "./modal.js"
+import { manageModal } from "./modal.js"
 
-// fetch the works to print the gallery
-async function fetchWorks() {
+// load the works to print the gallery
+async function loadWorks() {
 
     try {
         const response = await fetch('http://localhost:5678/api/works');
@@ -14,13 +14,17 @@ async function fetchWorks() {
 
         localStorage.setItem('works', JSON.stringify(works));
         generateGallery(works);
+        return True;
     } catch (error) {
         console.error('Erreur lors du chargement des works :', error);
+        return;
     }    
 }
 
+// If loading works, we call the other files
+if (loadWorks()) {
+    checkAuthentication();
+    manageModal();
+}
 
-fetchWorks();
-checkAuthentication();
-modal();
 

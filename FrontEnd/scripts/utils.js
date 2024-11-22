@@ -36,6 +36,18 @@ export function resetInputs(modal) {
     });
 }
 
+/* verif the modal inputs are filled */
+export function verifInputs(fileInput, titleInput, categoryInput) {
+    const inputs = [
+        { element: fileInput, isValid: el => el.files && el.files.length > 0 },
+        { element: titleInput, isValid: el => el.value.trim() !== "" },
+        { element: categoryInput, isValid: el => el.value }
+    ];
+
+    const invalidInput = inputs.find(input => !input.isValid(input.element));
+    return !invalidInput;
+}
+
 
 /* add a project to the modal gallery */
 export function addWorkToModalGallery(work) {

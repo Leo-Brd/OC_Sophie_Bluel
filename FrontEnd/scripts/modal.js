@@ -100,8 +100,10 @@ function listenDeleteProject() {
 
 
 /* call all modal functions */
-export function modal() {
+export function manageModal() {
+    
     document.addEventListener('DOMContentLoaded', () => {
+        console.log("test");
         listenOpenCloseModal();
         generateModalGallery();
         listenDeleteProject();

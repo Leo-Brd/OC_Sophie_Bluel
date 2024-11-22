@@ -1,49 +1,34 @@
-import { activeButton, desactiveButton, addWorkToGallery, addWorkToModalGallery, switchPage1, switchPage2, closeModal } from "./utils.js"
+import { activeButton, desactiveButton, addWorkToGallery, addWorkToModalGallery, switchPage1, switchPage2, closeModal, verifInputs } from "./utils.js"
 
 /* add a project */
 async function addProject(imageFile, title, category) {
-    try {
-        const formData = new FormData();
-        formData.append('image', imageFile);
-        formData.append('title', title);
-        formData.append('category', category);
 
-        console.log(formData)
+    const formData = new FormData();
+    formData.append('image', imageFile);
+    formData.append('title', title);
+    formData.append('category', category);
 
-        const response = await fetch(`http://localhost:5678/api/works/`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                'Accept': 'application/json'
-            },
-            body: formData
-        });
+    const response = await fetch(`http://localhost:5678/api/works/`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+            'Accept': 'application/json'
+        },
+        body: formData
+    });
 
-        if (response.ok) {
-            const result = await response.json();
+    if (response.ok) {
+        const result = await response.json();
+        addWorkToModalGallery(result);
+        addWorkToGallery(result);
 
-            addWorkToModalGallery(result);
-            addWorkToGallery(result);
-
-            let works = JSON.parse(localStorage.getItem('works')) || [];
-            works.push(result);
-            localStorage.setItem('works', JSON.stringify(works));
-        } else {
-            const error = await response.json();
-            console.error('Erreur lors de la création du work :', error);
-        }
-    } catch (error) {
-        console.error('Une erreur s\'est produite :', error);
+        let works = JSON.parse(localStorage.getItem('works')) || [];
+        works.push(result);
+        localStorage.setItem('works', JSON.stringify(works));
+    } else {
+        const error = await response.json();
+        console.error('Erreur lors de l\'ajout du projet :', error);
     }
-}
-
-/* manage the pages */
-function managePages() {
-    const backArrow = document.querySelector(".back-page");
-    switchPage2();
-    backArrow.addEventListener("click", () => {
-        switchPage1();
-    })
 }
 
 /* load the categories in the select input */
@@ -93,18 +78,6 @@ function listenPreviewImage(fileInput) {
     });
 }
 
-/* verif the modal inputs are filled */
-function verifInputs(fileInput, titleInput, categoryInput) {
-    const inputs = [
-        { element: fileInput, isValid: el => el.files && el.files.length > 0 },
-        { element: titleInput, isValid: el => el.value.trim() !== "" },
-        { element: categoryInput, isValid: el => el.value }
-    ];
-
-    const invalidInput = inputs.find(input => !input.isValid(input.element));
-    return !invalidInput;
-}
-
 /* listen when the button need to be active*/
 function listenButtonActivation(fileInput, titleInput, categoryInput) {
     const form = document.getElementById("new-project");
@@ -120,6 +93,13 @@ function listenButtonActivation(fileInput, titleInput, categoryInput) {
             }
         });
     });
+}
+
+/* manage the pages */
+function managePages() {
+    const backArrow = document.querySelector(".back-page");
+    switchPage2();
+    backArrow.addEventListener("click", switchPage1);
 }
 
 /* call all the functions */
