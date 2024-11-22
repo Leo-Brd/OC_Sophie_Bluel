@@ -1,8 +1,9 @@
-import { uniqueWorks, resetInputs, addWorkToModalGallery, openModal, closeModal } from "./utils.js";
+import { uniqueWorks, addWorkToModalGallery, openModal, closeModal } from "./utils.js";
 import { newProject } from "./modal_2.js";
 
 /* delete a project */
 async function deleteProject(projectElement, projectId) {
+
     const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
         method: "DELETE",
         headers: {
@@ -23,6 +24,8 @@ async function deleteProject(projectElement, projectId) {
         let works = JSON.parse(localStorage.getItem("works")) || [];
         works = works.filter(work => work.id !== parseInt(projectId));
         localStorage.setItem("works", JSON.stringify(works));
+    } else {
+        console.error("Une erreur s'est produite lors de la suppression :", error);
     }
 }
 
