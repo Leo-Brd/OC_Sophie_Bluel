@@ -2,6 +2,7 @@ import { generateGallery } from "./gallery.js"
 import { checkAuthentication } from "./login.js"
 import { modal } from "./modal.js"
 
+// fetch the works to print the gallery
 async function fetchWorks() {
 
     try {
@@ -15,12 +16,11 @@ async function fetchWorks() {
         generateGallery(works);
     } catch (error) {
         console.error('Erreur lors du chargement des works :', error);
-    }
-    
+    }    
 }
 
 
-fetchWorks().catch(error => console.error("Erreur :", error));
+fetchWorks();
 checkAuthentication();
 modal();
 

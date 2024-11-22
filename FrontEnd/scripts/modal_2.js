@@ -3,19 +3,10 @@ import { activeButton, desactiveButton, addWorkToGallery, addWorkToModalGallery,
 /* add a project */
 async function addProject(imageFile, title, categoryId) {
     try {
-        const categories = JSON.parse(localStorage.getItem('categories')) || [];
-        const categoryObject = categories.find(cat => cat.id === parseInt(categoryId));
-
-        if (!categoryObject) {
-            console.error("La catégorie spécifiée est introuvable.");
-            return;
-        }
-
         const formData = new FormData();
         formData.append('image', imageFile);
         formData.append('title', title);
         formData.append('categoryId', categoryId);
-        formData.append('category', JSON.stringify(categoryObject));
 
         const response = await fetch(`http://localhost:5678/api/works/`, {
             method: 'POST',
@@ -33,7 +24,7 @@ async function addProject(imageFile, title, categoryId) {
             addWorkToGallery(result);
 
             let works = JSON.parse(localStorage.getItem('works')) || [];
-            works.push(completeWork);
+            works.push(result);
             localStorage.setItem('works', JSON.stringify(works));
         } else {
             const error = await response.json();
@@ -131,7 +122,6 @@ function listenButtonActivation(fileInput, titleInput, categoryInput) {
 
 /* call all the functions */
 export function newProject() {
-    const form = document.getElementById("new-project");
     const fileInput = document.getElementById("file-input");
     const titleInput = document.getElementById("title-input");
     const categoryInput = document.getElementById("category-select");
@@ -141,9 +131,10 @@ export function newProject() {
     listenPreviewImage(fileInput);
     listenButtonActivation(fileInput, titleInput, categoryInput);
 
+    const form = document.getElementById("new-project");
+
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
-        console.log("test");
 
         const selectedCategory = categoryInput.options[categoryInput.selectedIndex];
         const categoryId = selectedCategory.getAttribute("data-id");
