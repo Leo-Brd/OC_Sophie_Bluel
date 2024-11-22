@@ -63,18 +63,15 @@
 	margin-top: auto;
 	border: none;
 	background-color: inherit;
+	color:#1D6154;
+	font-weight: 400;
+	font-size: 14px;
+	font-family: 'Work Sans';
 }
 
 .portfolio-title button svg {
 	width: 15.58px;
 	height: 15.58px;
-}
-
-.portfolio-title button p {
-	color:#1D6154;
-	font-weight: 400;
-	font-size: 14px;
-	font-family: 'Work Sans';
 }
 
 .portfolio-title button:hover {
