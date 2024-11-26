@@ -80,6 +80,9 @@ function listenDeleteProject() {
             const projectElement = event.target.closest(".modal-gallery-project");
             const projectId = projectElement.dataset.projectId;
 
+            const confirmModal = document.getElementById("confirmation-modal");
+            confirmModal.style.display = "flex";
+
             if (!projectId) {
                 console.error("Aucun ID de projet trouvé.");
                 return;
@@ -103,7 +106,6 @@ function listenDeleteProject() {
 export function manageModal() {
     
     document.addEventListener('DOMContentLoaded', () => {
-        console.log("test");
         listenOpenCloseModal();
         generateModalGallery();
         listenDeleteProject();

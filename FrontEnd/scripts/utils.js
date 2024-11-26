@@ -144,3 +144,5 @@ export function switchPage1() {
     const backArrow = document.querySelector(".back-page");
     backArrow.style.visibility = 'hidden';
 }
+
+
