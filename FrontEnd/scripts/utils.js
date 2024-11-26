@@ -145,4 +145,22 @@ export function switchPage1() {
     backArrow.style.visibility = 'hidden';
 }
 
+/* ask confirmation to the user when he deletes a project */
+export async function confirmDelete(callback) {
+    const confirmModal = document.getElementById("confirmation-modal");
+    confirmModal.style.display = "flex";
+
+    const confirmButton = document.getElementById("confirm-button");
+    const cancelButton = document.getElementById("cancel-button");
+
+    confirmButton.addEventListener("click", () => {
+        confirmModal.style.display = "none";
+        callback(true);
+    });
+
+    cancelButton.addEventListener("click", () => {
+        confirmModal.style.display = "none";
+        callback(false);
+    });
+}
 

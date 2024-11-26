@@ -1,4 +1,4 @@
-import { uniqueWorks, addWorkToModalGallery, openModal, closeModal } from "./utils.js";
+import { uniqueWorks, addWorkToModalGallery, openModal, closeModal, confirmDelete } from "./utils.js";
 import { newProject } from "./modal_2.js";
 
 /* delete a project */
@@ -69,6 +69,21 @@ function generateModalGallery() {
     });
 }
 
+/* Wait user confirmation then delete or not a project*/
+function askAndDeleteProject(projectElement, projectId) {
+    confirmDelete((confirmed) => {
+        if (confirmed) {
+            try {
+                deleteProject(projectElement, projectId);
+            } catch (error) {
+                console.error("Une erreur s'est produite lors de la suppression :", error);
+            }
+        } else {
+            console.log("Suppression annulée.");
+        }
+    });
+}
+
 /* listen the deletion of a project */
 function listenDeleteProject() {
     const trashIcons = document.querySelectorAll(".delete-project");
@@ -80,23 +95,12 @@ function listenDeleteProject() {
             const projectElement = event.target.closest(".modal-gallery-project");
             const projectId = projectElement.dataset.projectId;
 
-            const confirmModal = document.getElementById("confirmation-modal");
-            confirmModal.style.display = "flex";
-
             if (!projectId) {
                 console.error("Aucun ID de projet trouvé.");
                 return;
             }
 
-            if (!confirm("Êtes-vous sûr de vouloir supprimer ce projet ?")) {
-                return;
-            }
-
-            try {
-                deleteProject(projectElement, projectId);
-            } catch (error) {
-                console.error("Une erreur s'est produite :", error);
-            }
+            askAndDeleteProject(projectElement, projectId);
         });
     });
 }
