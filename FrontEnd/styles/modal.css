@@ -230,6 +230,24 @@
 
 /***** Confirmation modal *****/
 
-#confirmation-modal {
-    
+#confirmation-modal .modal-content {
+    width: 25%;
+    text-align: center;
+    gap: 15px;
+}
+
+.confirmation-modal-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.confirmation-modal-actions button {
+    width: 100px;
+    margin-bottom: 0;
+}
+
+#confirmation-modal h2 {
+    font-size: 25px;
 }
