@@ -2,6 +2,7 @@
 #introduction {
 	display: flex;
 	align-items: center;
+	margin: 130px 0px;
 }
 
 #introduction figure, article {
