@@ -20,24 +20,26 @@ header h1 > span {
 	letter-spacing: 0.1em;
 }
 
-nav ul {
+header nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
 }
 
-nav li {
+header nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
 
-nav li a {
+header nav li a {
     color: #1D6154;
 	font-weight: 400;
     text-decoration: none;
 }
 
-nav li img {
+header nav li img {
+	display: flex;
+	align-items: center;
 	height: 22px;
 	width: 22px;
 }
