@@ -84,6 +84,11 @@ export function showLoggedInUI() {
 
     const portfolioButton = document.querySelector(".portfolio-title button");
     portfolioButton.style.display = "flex";
+
+    const filtersButtons = document.querySelector(".filters");
+    filtersButtons.style.opacity = '0';
+    filtersButtons.style.pointerEvents = 'none';
+
 }
 
 /* check if user is connected */
