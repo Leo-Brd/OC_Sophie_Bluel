@@ -65,6 +65,10 @@ main form a {
     font-size: 14px;
 }
 
+#login-logout {
+    font-weight: 600;
+}
+
 /***** Error message *****/
 .login-error {
     color: red;
