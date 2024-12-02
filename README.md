@@ -1,5 +1,6 @@
 
-![Screenshot 2024-11-05 at 23-43-38 Sophie Bluel - Architecte d'intérieur](https://github.com/user-attachments/assets/dece4766-9566-4f66-865c-e26bde9546f9)
+![image](https://github.com/user-attachments/assets/bf750674-2b43-4c3f-a4ae-50b5ab6058fa)
+
 
 OpenClassrooms Web developer formation : project 3
 
