@@ -1,5 +1,6 @@
+/***** Modals *****/
 
-/**** Page 1 *****/
+/***** Page 1 ( Gallery ) *****/
 
 .modal {
     display: none;
@@ -115,7 +116,7 @@
 }
 
 
-/**** Page 2 *****/
+/***** Page 2 ( Add a project ) *****/
 
 #new-project {
     display: flex;
@@ -228,7 +229,7 @@
     height: 100%;
 }
 
-/***** Confirmation modal *****/
+/***** Deleting Confirmation modal *****/
 
 #confirmation-modal .modal-content {
     width: 25%;
