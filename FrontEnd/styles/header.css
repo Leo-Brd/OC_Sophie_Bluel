@@ -24,6 +24,7 @@ header h1 > span {
 header nav ul {
 	display: flex;
 	align-items: center;
+	gap: 30px;
 	list-style-type: none;
 }
 
