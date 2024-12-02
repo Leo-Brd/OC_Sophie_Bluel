@@ -1,11 +1,9 @@
 /***** Contact section *****/
 
 #contact {
-	width: 50%;
+	width: 35%;
 	margin: auto;
-}
-
-#contact > * {
+	margin-top: 30px;
 	text-align: center;
 }
 
@@ -20,7 +18,7 @@
 	flex-direction: column;
 }
 
-#contact input {
+#contact #email, #contact #name {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -41,10 +39,12 @@ input[type="submit"]{
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
+	margin : 3em auto ;
 	width: 180px;
+	height: 36px;
 	text-align: center;
 	border-radius: 60px ;
+	border: none;
 }
 
 input[type="submit"]:hover {
