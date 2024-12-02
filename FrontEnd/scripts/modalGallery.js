@@ -1,5 +1,5 @@
 import { uniqueWorks, addWorkToModalGallery, openModal, closeModal, confirmDelete } from "./utils.js";
-import { newProject } from "./modal_2.js";
+import { newProject } from "./modalAddProject.js";
 
 /* delete a project */
 async function deleteProject(projectElement, projectId) {

@@ -1,6 +1,6 @@
 import { generateGallery } from "./gallery.js"
 import { checkAuthentication } from "./login.js"
-import { manageModal } from "./modal.js"
+import { manageModal } from "./modalGallery.js"
 
 // load the works to print the gallery
 async function loadWorks() {
