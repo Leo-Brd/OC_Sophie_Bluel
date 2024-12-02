@@ -17,8 +17,9 @@ header h1 {
 
 header h1 > span {
 	font-family: 'Work Sans';
-	font-size:10px;
-	letter-spacing: 0.1em;
+	font-size: 10px;
+	font-weight: 400;
+	margin-top: 5px;
 }
 
 header nav ul {
