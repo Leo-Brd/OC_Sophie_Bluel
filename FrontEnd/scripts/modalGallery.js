@@ -25,7 +25,7 @@ async function deleteProject(projectElement, projectId) {
         works = works.filter(work => work.id !== parseInt(projectId));
         localStorage.setItem("works", JSON.stringify(works));
     } else {
-        console.error("Une erreur s'est produite lors de la suppression :", error);
+        console.error("Une erreur s'est produite lors de la requête de suppression :", error);
     }
 }
 
@@ -53,20 +53,20 @@ function listenOpenCloseModal() {
 
 /* generate the gallery in the modal */
 function generateModalGallery() {
-    let works = JSON.parse(window.localStorage.getItem('works')) || [];
+    try {
+        let works = JSON.parse(window.localStorage.getItem('works')) || [];
 
-    const modalGallery = document.querySelector(".modal-gallery");
-    if (!modalGallery) {
-        console.error("Élément '.modal-gallery' non trouvé.");
-        return;
+        const modalGallery = document.querySelector(".modal-gallery");
+        modalGallery.innerHTML = "";
+
+        const uniqueWorksList = uniqueWorks(works);
+
+        uniqueWorksList.forEach(work => {
+            addWorkToModalGallery(work);
+        });
+    } catch (error) {
+        console.error("Une erreur s'est produite lors de la génération des travaux :", error);
     }
-    modalGallery.innerHTML = "";
-
-    const uniqueWorksList = uniqueWorks(works);
-
-    uniqueWorksList.forEach(work => {
-        addWorkToModalGallery(work);
-    });
 }
 
 /* Wait user confirmation then delete or not a project*/
@@ -92,15 +92,13 @@ function listenDeleteProject() {
         icon.addEventListener("click", async (event) => {
             event.preventDefault();
 
-            const projectElement = event.target.closest(".modal-gallery-project");
-            const projectId = projectElement.dataset.projectId;
-
-            if (!projectId) {
-                console.error("Aucun ID de projet trouvé.");
-                return;
+            try {
+                const projectElement = event.target.closest(".modal-gallery-project");
+                const projectId = projectElement.dataset.projectId;
+                askAndDeleteProject(projectElement, projectId);
+            } catch (error) {
+                console.error("Une erreur s'est produite lors de la demande de confirmation :", error);
             }
-
-            askAndDeleteProject(projectElement, projectId);
         });
     });
 }

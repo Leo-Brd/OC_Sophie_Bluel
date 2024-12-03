@@ -136,6 +136,7 @@ export function switchPage2() {
 export function switchPage1() {
     const submitButton = document.getElementById("validate-button");
     desactiveButton(submitButton);
+    
     const page1 = document.getElementById("page-1");
     page1.style.display = 'flex';
     const page2 = document.getElementById("page-2");
