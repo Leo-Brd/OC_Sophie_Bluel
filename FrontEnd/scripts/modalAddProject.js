@@ -97,8 +97,8 @@ function listenButtonActivation(fileInput, titleInput, categoryInput) {
 
 /* manage the pages */
 function managePages() {
-    const backArrow = document.querySelector(".back-page");
     switchPage2();
+    const backArrow = document.querySelector(".back-page");
     backArrow.addEventListener("click", switchPage1);
 }
 
