@@ -18,17 +18,21 @@ export function generateFilteredWorks(works) {
     const filterButtons = document.querySelectorAll(".filters button");
 
     filterButtons.forEach(button => {
-        button.addEventListener("click", function() {
-            filterButtons.forEach(btn => btn.classList.remove("active"));
-            this.classList.add("active");
+        button.addEventListener("click", function () {
+            try {
+                filterButtons.forEach(btn => btn.classList.remove("active"));
+                this.classList.add("active");
 
-            if (this.textContent === "Tous") {
-                generateWorks(works);
-                return;
+                if (this.textContent === "Tous") {
+                    generateWorks(works);
+                    return;
+                } else {
+                    const worksFiltres = works.filter(work => work.category.name === this.textContent);
+                    generateWorks(worksFiltres);
+                }
+            } catch (error) {
+                console.error('Erreur lors du filtrage par catégorie :', error);
             }
-            const worksFiltres = works.filter(work => work.category.name === this.textContent);
-
-            generateWorks(worksFiltres);
         });
     });
 }
@@ -37,14 +41,18 @@ export function generateFilteredWorks(works) {
 // generate filters buttons
 export function generateButton(categories) {
 
-    const filters = document.querySelector(".filters");
+    try {
+        const filters = document.querySelector(".filters");
 
-    for (let i = 0; i < categories.length; i++) {
-        const category = categories[i];
-        const button = document.createElement("button");
-        button.textContent = category.name;
+        for (let i = 0; i < categories.length; i++) {
+            const category = categories[i];
+            const button = document.createElement("button");
+            button.textContent = category.name;
 
-        filters.appendChild(button)
+            filters.appendChild(button);
+        }
+    } catch (error) {
+        console.error('Erreur lors de la génération des boutons filtres :', error);
     }
 }
 
@@ -78,7 +86,7 @@ export async function fetchCategories() {
 // call all our functions for generating gallery
 export async function generateGallery(works) {
 
-    generateButton(await fetchCategories())
+    generateButton(await fetchCategories());
     generateWorks(works);
     generateFilteredWorks(works);
 

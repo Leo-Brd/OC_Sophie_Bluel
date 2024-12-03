@@ -9,7 +9,7 @@ async function loadWorks() {
         const response = await fetch('http://localhost:5678/api/works');
         if (!response.ok) {
             throw new Error('Erreur lors de la récupération des works');
-        }else{
+        } else {
             const works = await response.json();
             localStorage.setItem('works', JSON.stringify(works));
             generateGallery(works);
