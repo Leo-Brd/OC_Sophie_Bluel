@@ -48,21 +48,32 @@ export function generateButton(categories) {
     }
 }
 
-// fetch categories from the API
+// Fetch categories from the API
 export async function fetchCategories() {
     let categories = window.localStorage.getItem('categories');
 
     if (categories === null) {
-        const reponse = await fetch('http://localhost:5678/api/categories');
-        categories = await reponse.json();
+        try {
+            const response = await fetch('http://localhost:5678/api/categories');           
+            if (!response.ok) {
+                throw new Error('Erreur lors de la récupération des catégories');
+            }
 
-        const valeurCategories = JSON.stringify(categories);
-        window.localStorage.setItem("categories", valeurCategories);
+            categories = await response.json();
+            const valeurCategories = JSON.stringify(categories);
+            window.localStorage.setItem("categories", valeurCategories);
+
+        } catch (error) {
+            console.error('Erreur lors du traitement des catégories :', error);
+            return [];
+        }
     } else {
         categories = JSON.parse(categories);
     }
-    return (categories);
+
+    return categories;
 }
+
 
 // call all our functions for generating gallery
 export async function generateGallery(works) {
