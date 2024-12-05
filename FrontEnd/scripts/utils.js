@@ -38,8 +38,10 @@ export function resetInputs(modal) {
 
 /* verif the modal inputs are filled */
 export function verifInputs(fileInput, titleInput, categoryInput) {
+    const MAX_FILE_SIZE = 4 * 1024 * 1024;
+
     const inputs = [
-        { element: fileInput, isValid: el => el.files && el.files.length > 0 },
+        { element: fileInput, isValid: el => el.files && el.files.length > 0 && el.files[0].size <= MAX_FILE_SIZE },
         { element: titleInput, isValid: el => el.value.trim() !== "" },
         { element: categoryInput, isValid: el => el.value }
     ];
