@@ -123,6 +123,6 @@ export function newProject() {
 
         await addProject(fileInput.files[0], titleInput.value, categoryId);
         closeModal();
-    })
+    });
 }
 

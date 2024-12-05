@@ -14,24 +14,19 @@ export function uniqueWorks(works) {
 
 /* clean the modal inputs */
 export function resetInputs(modal) {
-    const inputs = modal.querySelectorAll('input, select');
 
-    inputs.forEach(input => {
-        if (input.type === 'file') {
-            input.value = '';
-            const previewImage = document.getElementById('preview-image');
-            if (previewImage) {
-                previewImage.style.display = 'none';
-                previewImage.src = '';
-            }
-            const otherElements = document.querySelectorAll('.add-file > *:not(#preview-image)');
-            otherElements.forEach(element => {
-                if (element !== previewImage) {
-                    element.style.display = 'flex';
-                }
-            });
-        } else if (input.type === 'text' || input.type === 'select-one') {
-            input.value = '';
+    const form = document.getElementById("new-project");
+    form.reset();
+
+    const previewImage = document.getElementById('preview-image');
+    if (previewImage) {
+        previewImage.style.display = 'none';
+        previewImage.src = '';
+    }
+    const otherElements = document.querySelectorAll('.add-file > *:not(#preview-image)');
+    otherElements.forEach(element => {
+        if (element !== previewImage) {
+            element.style.display = 'flex';
         }
     });
 }
