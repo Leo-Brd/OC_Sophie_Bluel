@@ -39,9 +39,12 @@ export function resetInputs(modal) {
 /* verif the modal inputs are filled */
 export function verifInputs(fileInput, titleInput, categoryInput) {
     const MAX_FILE_SIZE = 4 * 1024 * 1024;
+    const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg"];
 
     const inputs = [
-        { element: fileInput, isValid: el => el.files && el.files.length > 0 && el.files[0].size <= MAX_FILE_SIZE },
+        { element: fileInput, 
+            isValid: el => el.files && el.files.length > 0 && 
+            el.files[0].size <= MAX_FILE_SIZE && ALLOWED_FILE_TYPES.includes(el.files[0].type) },
         { element: titleInput, isValid: el => el.value.trim() !== "" },
         { element: categoryInput, isValid: el => el.value }
     ];
