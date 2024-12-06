@@ -22,7 +22,7 @@ async function loadWorks() {
     }    
 }
 
-// If loading worksis ok, we call the other files
+// If loading works is ok, we call the other files
 if (loadWorks()) {
     checkAuthentication();
     manageModal();

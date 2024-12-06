@@ -8,6 +8,7 @@ async function addProject(imageFile, title, category) {
     formData.append('title', title);
     formData.append('category', category);
 
+    
     const response = await fetch(`http://localhost:5678/api/works/`, {
         method: 'POST',
         headers: {
@@ -95,20 +96,15 @@ function listenButtonActivation(fileInput, titleInput, categoryInput) {
     });
 }
 
-/* manage the pages */
-function managePages() {
-    switchPage2();
-    const backArrow = document.querySelector(".back-page");
-    backArrow.addEventListener("click", switchPage1);
-}
-
 /* call all the functions */
-export function newProject() {
+export async function newProject() {
     const fileInput = document.getElementById("file-input");
     const titleInput = document.getElementById("title-input");
     const categoryInput = document.getElementById("category-select");
 
-    managePages();
+    const backArrow = document.querySelector(".back-page");
+    backArrow.addEventListener("click", switchPage1);
+
     loadCategories(categoryInput);
     listenPreviewImage(fileInput);
     listenButtonActivation(fileInput, titleInput, categoryInput);
@@ -117,6 +113,7 @@ export function newProject() {
 
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
+        event.stopPropagation();
 
         const selectedCategory = categoryInput.options[categoryInput.selectedIndex];
         const categoryId = selectedCategory.getAttribute("data-id");

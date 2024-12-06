@@ -1,4 +1,4 @@
-import { uniqueWorks, addWorkToModalGallery, openModal, closeModal, confirmDelete } from "./utils.js";
+import { uniqueWorks, addWorkToModalGallery, openModal, closeModal, confirmDelete, switchPage2 } from "./utils.js";
 import { newProject } from "./modalAddProject.js";
 
 /* delete a project */
@@ -91,6 +91,7 @@ function listenDeleteProject() {
     trashIcons.forEach(icon => {
         icon.addEventListener("click", async (event) => {
             event.preventDefault();
+            event.stopPropagation();
 
             try {
                 const projectElement = event.target.closest(".modal-gallery-project");
@@ -112,9 +113,11 @@ export function manageModal() {
         generateModalGallery();
         listenDeleteProject();
 
+        newProject();
+
         const addProjectButton = document.getElementById("add-project-button");
         addProjectButton.addEventListener("click", () => {
-            newProject();
+            switchPage2();
         })
     });
 }
