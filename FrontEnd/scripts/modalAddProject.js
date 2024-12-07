@@ -79,22 +79,25 @@ function listenPreviewImage(fileInput) {
     });
 }
 
-/* listen when the button need to be active*/
+/* listen when the button needs to be active */
 function listenButtonActivation(fileInput, titleInput, categoryInput) {
-    const form = document.getElementById("new-project");
     const submitButton = document.getElementById("validate-button");
+    const inputs = [fileInput, titleInput, categoryInput];
 
-    const inputs = form.querySelectorAll('.modal-input input, .modal-input select');
+    function updateButtonState() {
+        if (verifInputs(fileInput, titleInput, categoryInput)) {
+            activeButton(submitButton);
+        } else {
+            desactiveButton(submitButton);
+        }
+    }
+
     inputs.forEach(input => {
-        input.addEventListener('input', () => {
-            if (verifInputs(fileInput, titleInput, categoryInput)) {
-                activeButton(submitButton);
-            } else {
-                desactiveButton(submitButton);
-            }
-        });
+        const eventType = input.type === 'file' ? 'change' : 'input';
+        input.addEventListener(eventType, updateButtonState);
     });
 }
+
 
 /* call all the functions */
 export async function newProject() {

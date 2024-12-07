@@ -44,6 +44,10 @@ export function verifInputs(fileInput, titleInput, categoryInput) {
         { element: categoryInput, isValid: el => el.value }
     ];
 
+    if (fileInput.files[0].size > MAX_FILE_SIZE || !ALLOWED_FILE_TYPES.includes(fileInput.files[0].type)) {
+        onImageError();
+    }  
+
     const invalidInput = inputs.find(input => !input.isValid(input.element));
     return !invalidInput;
 }
@@ -113,6 +117,11 @@ export function openModal() {
 
 /* close the modal */ 
 export function closeModal() {
+    let errorMessage = document.querySelector(".image-error");
+    if (errorMessage) {
+        errorMessage.remove();
+    }
+
     const modal = document.querySelector('.modal');
     if (modal) {
         modal.style.display = 'none';
@@ -165,3 +174,17 @@ export async function confirmDelete(callback) {
     });
 }
 
+
+/* when the image isn't at a good format, we print an error message */
+function onImageError() {
+    const form = document.getElementById("new-project");
+
+    let errorMessage = document.querySelector(".image-error");
+    if (!errorMessage) {
+        errorMessage = document.createElement("p");
+        errorMessage.classList.add("image-error");
+        errorMessage.textContent = "Le format de l'image est incorrect";
+        
+        form.appendChild(errorMessage);
+    }
+}

@@ -229,6 +229,13 @@
     height: 100%;
 }
 
+.image-error {
+    color: red;
+    margin-top: 30px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
 /***** Deleting Confirmation modal *****/
 
 #confirmation-modal .modal-content {
