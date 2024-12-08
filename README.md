@@ -11,6 +11,7 @@ OpenClassrooms Web developer formation : project 3
 - In connected mode, you can add and remove works
 
 To run the project :
-- You need to have node and npm installed
+- You need to have node, npm and http-server installed
 - In the Back-end folder, type "npm start"
-- Open index.html
+- In the Front-end folder, type "http-server"
+- Open the url in a navigator
